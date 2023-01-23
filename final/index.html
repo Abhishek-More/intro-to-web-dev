@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <!-- IMPORT STUFF AND SET TITLE HERE-->
+  <head>
+    <title>Aggie Jokes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head> 
+  
+  <!-- IMPORT OUR ARRAY OF JOKES -->
+  <script src="output.js">
+  </script>
+
+
+  <script>
+    var handlesave = () => {
+      axios.post('http://localhost:3001/save-joke', {
+        joke: joke['joke'],
+      }).then(function (response) {
+        handleNumSave()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });    
+    }
+  </script>
+
+  <!-- ANYTHING HERE SHOWS UP ON THE WEBSITE -->
+  <body>
+    <h1>Jokes</h1>
+    <h2 id="savedNum">Saved Jokes</h2>
+    <div class="card" style="margin-left: 20%; margin-right: 20%; margin-top: 20%;">
+      <div class="card-content">
+        <p id="joke" class="title">Joke</p>
+        <p id="name" class="subtitle">Name</p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            <a onclick="window.location.reload()">Next Joke</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            <a onclick="handlesave()">Save Joke</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </body>
+
+  <script>
+    let jokeArray = jokes
+    let randomNum = Math.floor(Math.random() * 255);
+    let joke = jokeArray[randomNum]
+
+    let jokeTitle = document.getElementById("joke") 
+    let author = document.getElementById("name")
+
+    jokeTitle.innerHTML = joke["joke"]
+    author.innerHTML = joke["first name"]
+  </script>
+
+  <script>
+    handleNumSave()
+    function handleNumSave() {
+      axios({
+        method: 'get',
+        url: 'http://localhost:3001/',
+      })
+      .then(function (response) {
+        let savedNum = document.getElementById("savedNum")
+        savedNum.innerHTML = response.data.length
+      });
+    }
+  </script>
+
+
+
+
+
+
+  </html>

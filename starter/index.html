@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <!-- IMPORT STUFF AND SET TITLE HERE-->
+  <head>
+    <title>Aggie Jokez</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  </head> 
+  
+  <!-- IMPORT OUR ARRAY OF JOKES -->
+  <script src="output.js">
+  </script>
+
+  <!-- ANYTHING HERE SHOWS UP ON THE WEBSITE -->
+  <body>
+    <div style="margin-left:50px; margin-right: 50px; margin-top: 250px;" class="card">
+      <div class="card-content">
+        <p id="title" class="title">Joke Content</p>
+        <p id="author" class="subtitle">Joke Author</p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <a onclick="window.location.reload()">Next Joke</a>
+        </p>
+        <p class="card-footer-item">
+          <a>Save Joke</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+
+  <script>
+    let jokeArray = jokes;
+    let randomNum = Math.floor(Math.random() * 253); 
+    let joke = jokeArray[randomNum];
+
+    let title = document.getElementById("title")
+    let author = document.getElementById("author")
+
+    title.innerHTML = joke["joke"];
+    author.innerHTML = joke["first name"];
+  </script>
+
+
+</html>
+
