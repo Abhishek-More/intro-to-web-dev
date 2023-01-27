@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <!-- IMPORT STUFF AND SET TITLE HERE-->
+  <head>
+    <title>Aggie Jokez</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="app.css">
+  </head> 
+  
+  <!-- IMPORT OUR ARRAY OF JOKES -->
+  <script src="output.js">
+  </script>
+
+  <script>
+    //Makes a post request to our database to save joke
+    function handleSave() {
+      let primary = document.getElementById("title").innerHTML;
+      let secondary = document.getElementById("author").innerHTML;
+
+      axios({
+        method: 'post',
+        url: 'http://localhost:3001/save-joke',
+        data: {
+          joke: primary || "",
+          delivery: secondary || "",
+        }
+      })
+    }
+  </script>
+
+  <!-- ANYTHING HERE SHOWS UP ON THE WEBSITE -->
+  <body>
+    <div id="main-card" class="card">
+      <div class="card-content">
+        <p id="title" class="title">Loading...</p>
+        <p id="author" class="subtitle">Loading...</p>
+      </div>
+      <footer class="card-footer">
+        <a onclick="window.location.reload()" class="card-footer-item">
+          Next Joke
+        </a>
+        <a onclick="handleSave()" class="card-footer-item">
+          Save Joke
+        </a>
+      </footer>
+    </div>
+  </body>
+
+  <!-- <script>
+    let randomNum = Math.floor(Math.random() * 251);
+    let joke = jokes[randomNum];
+
+    titleElem = document.getElementById("title");
+    authorElem = document.getElementById("author");
+
+    titleElem.innerHTML = joke["joke"];
+    authorElem.innerHTML = joke["first name"];
+  </script> -->
+
+  <script>
+    //makes a get request to our database to get a random joke
+    axios({
+      method: 'get',
+      url: 'http://localhost:3001/',
+    })
+    .then(function (response) {
+      //inserts joke into the card
+      let data = response.data;
+      let joke = data.joke || data.setup;
+      let answer = data.delivery || "";
+
+      titleElem = document.getElementById("title");
+      authorElem = document.getElementById("author");
+
+      titleElem.innerHTML = joke
+      authorElem.innerHTML = answer
+    });
+  </script>
+
+
+</html>
+
